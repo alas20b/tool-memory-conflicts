@@ -1,0 +1,171 @@
+{
+  "offline": {
+    "status": "passed",
+    "models": [
+      {
+        "index": 0,
+        "model_key": "completion:llama-3.1-8b",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 147,
+          "incorrect": 130,
+          "absent": 3
+        }
+      },
+      {
+        "index": 1,
+        "model_key": "llama-3.1-8b-instruct",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 143,
+          "incorrect": 137,
+          "absent": 0
+        }
+      },
+      {
+        "index": 2,
+        "model_key": "qwen2.5-7b-instruct",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 110,
+          "incorrect": 160,
+          "absent": 10
+        }
+      },
+      {
+        "index": 3,
+        "model_key": "gemma-2-9b-it",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 137,
+          "incorrect": 112,
+          "absent": 31
+        }
+      },
+      {
+        "index": 4,
+        "model_key": "mistral-7b-instruct-v0.3",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 129,
+          "incorrect": 143,
+          "absent": 8
+        }
+      }
+    ],
+    "shared_full_questions": 280,
+    "real_tool_calls": false
+  },
+  "runtime": {
+    "status": "passed",
+    "model_key": "mistral-7b-instruct-v0.3",
+    "hf_repo": "mistralai/Mistral-7B-Instruct-v0.3",
+    "backend": "transformers",
+    "versions": {
+      "numpy": "1.26.4",
+      "vllm": "0.8.5",
+      "torch": "2.6.0",
+      "transformers": "5.14.1",
+      "huggingface-hub": "1.26.0"
+    },
+    "gpu_count": 1,
+    "gpu_0": "NVIDIA TITAN RTX",
+    "resolved_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+    "cache": "/path/to/persistent/hf-cache",
+    "cache_free_gb": 436.96,
+    "snapshot_already_cached": false
+  }
+}
+{
+  "model_key": "mistral-7b-instruct-v0.3",
+  "questions": 12,
+  "prompts": 36,
+  "packet_content_sha256": "77896fbdb31d45f676790c90f66e5f62d36afecb6fe6b4f305f6339724c86983",
+  "error_kinds": [
+    "service_503",
+    "timeout",
+    "permission_denied"
+  ],
+  "path": "packets/mistral-7b-instruct-v0.3-review.json",
+  "file_sha256": "8125da1ed94ca14794488f4a2c2ffd140ca858f7e6e4d8f03ee1926850b49839"
+}
+checkpoint: 1/36
+checkpoint: 2/36
+checkpoint: 3/36
+checkpoint: 4/36
+checkpoint: 5/36
+checkpoint: 6/36
+checkpoint: 7/36
+checkpoint: 8/36
+checkpoint: 9/36
+checkpoint: 10/36
+checkpoint: 11/36
+checkpoint: 12/36
+checkpoint: 13/36
+checkpoint: 14/36
+checkpoint: 15/36
+checkpoint: 16/36
+checkpoint: 17/36
+checkpoint: 18/36
+checkpoint: 19/36
+checkpoint: 20/36
+checkpoint: 21/36
+checkpoint: 22/36
+checkpoint: 23/36
+checkpoint: 24/36
+checkpoint: 25/36
+checkpoint: 26/36
+checkpoint: 27/36
+checkpoint: 28/36
+checkpoint: 29/36
+checkpoint: 30/36
+checkpoint: 31/36
+checkpoint: 32/36
+checkpoint: 33/36
+checkpoint: 34/36
+checkpoint: 35/36
+checkpoint: 36/36
+{
+  "model_key": "mistral-7b-instruct-v0.3",
+  "questions": 12,
+  "prompts": 36,
+  "packet_content_sha256": "77896fbdb31d45f676790c90f66e5f62d36afecb6fe6b4f305f6339724c86983",
+  "error_kinds": [
+    "service_503",
+    "timeout",
+    "permission_denied"
+  ],
+  "n_responses": 36,
+  "n_missing": 0,
+  "complete": true
+}
+{
+  "model_key": "mistral-7b-instruct-v0.3",
+  "questions": 12,
+  "prompts": 36,
+  "packet_content_sha256": "77896fbdb31d45f676790c90f66e5f62d36afecb6fe6b4f305f6339724c86983",
+  "error_kinds": [
+    "service_503",
+    "timeout",
+    "permission_denied"
+  ],
+  "n_responses": 36,
+  "n_missing": 0,
+  "complete": true,
+  "responses_sha256": "200ccabd984be2f2f03486051666ef4f237d6f46629de32a04f039f62454389f"
+}
