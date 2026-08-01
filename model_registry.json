@@ -1,0 +1,47 @@
+{
+  "completion:llama-3.1-8b": {
+    "index": 0,
+    "hf_repo": "meta-llama/Llama-3.1-8B",
+    "requested_revision": "main",
+    "parameter_count": "8B",
+    "interface": "completion",
+    "gated": true,
+    "memory_labels": "memory_labels/base_near_pv0_qc_metrics_v1.json"
+  },
+  "llama-3.1-8b-instruct": {
+    "index": 1,
+    "hf_repo": "meta-llama/Llama-3.1-8B-Instruct",
+    "requested_revision": "main",
+    "parameter_count": "8B",
+    "interface": "chat",
+    "gated": true,
+    "memory_labels": "memory_labels/llamai_near_pv0_qc_metrics_v1.json"
+  },
+  "qwen2.5-7b-instruct": {
+    "index": 2,
+    "hf_repo": "Qwen/Qwen2.5-7B-Instruct",
+    "requested_revision": "main",
+    "parameter_count": "7.61B",
+    "interface": "chat",
+    "gated": false,
+    "memory_labels": "memory_labels/qwen_near_pv0_qc_metrics_v1.json"
+  },
+  "gemma-2-9b-it": {
+    "index": 3,
+    "hf_repo": "google/gemma-2-9b-it",
+    "requested_revision": "main",
+    "parameter_count": "9B",
+    "interface": "chat",
+    "gated": true,
+    "memory_labels": "memory_labels/gemma_near_pv0_qc_metrics_v1.json"
+  },
+  "mistral-7b-instruct-v0.3": {
+    "index": 4,
+    "hf_repo": "mistralai/Mistral-7B-Instruct-v0.3",
+    "requested_revision": "main",
+    "parameter_count": "7B",
+    "interface": "chat",
+    "gated": false,
+    "memory_labels": "memory_labels/mistral_near_pv0_qc_metrics_v1.json"
+  }
+}

@@ -1,0 +1,4 @@
+# vLLM 0.8.5 is the serving version recorded in the KCB paper.
+# NumPy 1.26.4 avoids the NumPy-2/soxr ABI mismatch seen on DataSphere images.
+numpy==1.26.4
+vllm==0.8.5

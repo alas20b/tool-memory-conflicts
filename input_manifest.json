@@ -1,0 +1,38 @@
+{
+  "schema_version": "kcb-input-manifest-v1",
+  "generated_at": "2026-08-01T18:00:55Z",
+  "files": {
+    "data/episodes_v1_full_near_pv0_poolv3.json": {
+      "bytes": 6511795,
+      "sha256": "f65816818452e6e712a488b875a1877e0001ec9cad68a6813e0bcb70814f706e"
+    },
+    "experiment_config.json": {
+      "bytes": 487,
+      "sha256": "4b261a41797863553ceca5460edc392a0394c49f532e0c55ed114b44d2439bf6"
+    },
+    "memory_labels/base_near_pv0_qc_metrics_v1.json": {
+      "bytes": 852001,
+      "sha256": "f5d01b02342e931f606d43d94c3e3c17a890c8046583acb5bb04753e6e61f0ea"
+    },
+    "memory_labels/gemma_near_pv0_qc_metrics_v1.json": {
+      "bytes": 808509,
+      "sha256": "7b3f7ce104eb584812cac7f22554b2a5c809b490269ad069c23ac07ab3796b44"
+    },
+    "memory_labels/llamai_near_pv0_qc_metrics_v1.json": {
+      "bytes": 947904,
+      "sha256": "e8b875eb2202a948a5d83476f5a5e11659781528db7f3def26a3bcb2792e267f"
+    },
+    "memory_labels/mistral_near_pv0_qc_metrics_v1.json": {
+      "bytes": 955573,
+      "sha256": "68070bcfd779a834c31caff9fb7f6fb040e21d4ae1c8b7a7035e3605bce649be"
+    },
+    "memory_labels/qwen_near_pv0_qc_metrics_v1.json": {
+      "bytes": 885732,
+      "sha256": "2c9a6516d799a409f878eea01c5ff61612afe3d34b0f49e71d93d16d7bdf2533"
+    },
+    "model_registry.json": {
+      "bytes": 1378,
+      "sha256": "7d969cf78fe266c558f331c1dfe046fddc55bba3860c81e82eebe58eedf9d82b"
+    }
+  }
+}

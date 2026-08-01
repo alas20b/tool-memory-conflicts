@@ -1,0 +1,18 @@
+name: offline-dry-run
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate complete offline pipeline
+        run: sh run_scripts.sh --dry_run
