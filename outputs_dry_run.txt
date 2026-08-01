@@ -1,0 +1,144 @@
+{
+  "model_key": "llama-3.1-8b-instruct",
+  "questions": 4,
+  "prompts": 12,
+  "packet_content_sha256": "673d15513ba0b50520d6a95b1dd8c769f167a1a2b55d9f8d920efc16def4d031",
+  "error_kinds": [
+    "service_503",
+    "timeout",
+    "permission_denied"
+  ],
+  "n_responses": 12,
+  "n_missing": 0,
+  "complete": true
+}
+{
+  "model_key": "llama-3.1-8b-instruct",
+  "questions": 4,
+  "prompts": 12,
+  "packet_content_sha256": "673d15513ba0b50520d6a95b1dd8c769f167a1a2b55d9f8d920efc16def4d031",
+  "error_kinds": [
+    "service_503",
+    "timeout",
+    "permission_denied"
+  ],
+  "n_responses": 12,
+  "n_missing": 0,
+  "complete": true
+}
+{
+  "offline": {
+    "status": "passed",
+    "models": [
+      {
+        "index": 0,
+        "model_key": "completion:llama-3.1-8b",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 147,
+          "incorrect": 130,
+          "absent": 3
+        }
+      },
+      {
+        "index": 1,
+        "model_key": "llama-3.1-8b-instruct",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 143,
+          "incorrect": 137,
+          "absent": 0
+        }
+      },
+      {
+        "index": 2,
+        "model_key": "qwen2.5-7b-instruct",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 110,
+          "incorrect": 160,
+          "absent": 10
+        }
+      },
+      {
+        "index": 3,
+        "model_key": "gemma-2-9b-it",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 137,
+          "incorrect": 112,
+          "absent": 31
+        }
+      },
+      {
+        "index": 4,
+        "model_key": "mistral-7b-instruct-v0.3",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 129,
+          "incorrect": 143,
+          "absent": 8
+        }
+      }
+    ],
+    "shared_full_questions": 280,
+    "real_tool_calls": false
+  }
+}
+{
+  "model_key": "llama-3.1-8b-instruct",
+  "questions": 12,
+  "prompts": 36,
+  "packet_content_sha256": "300c73c937b355c34745edbb74680a7cfd86ae41d4f8fc983fb637fc0500b4da",
+  "error_kinds": [
+    "service_503",
+    "timeout",
+    "permission_denied"
+  ],
+  "path": "packets/dry-run-review.json",
+  "file_sha256": "6d0e0f71dbe58dc283cde87ae3aaa3e78da1805788e79b9c03a8aa62e00278ae"
+}
+{
+  "model_key": "llama-3.1-8b-instruct",
+  "questions": 12,
+  "prompts": 36,
+  "packet_content_sha256": "300c73c937b355c34745edbb74680a7cfd86ae41d4f8fc983fb637fc0500b4da",
+  "error_kinds": [
+    "service_503",
+    "timeout",
+    "permission_denied"
+  ],
+  "n_responses": 36,
+  "n_missing": 0,
+  "complete": true
+}
+{
+  "model_key": "llama-3.1-8b-instruct",
+  "questions": 12,
+  "prompts": 36,
+  "packet_content_sha256": "300c73c937b355c34745edbb74680a7cfd86ae41d4f8fc983fb637fc0500b4da",
+  "error_kinds": [
+    "service_503",
+    "timeout",
+    "permission_denied"
+  ],
+  "n_responses": 36,
+  "n_missing": 0,
+  "complete": true,
+  "responses_sha256": "087f92b80cfb49ed2bacc59094f76c8a0b65755dadb6835e4e82cc9234071123"
+}
