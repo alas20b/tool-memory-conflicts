@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import csv
 import io
 import json
@@ -17,6 +18,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--backend",
+        choices=("mock", "vllm", "transformers", "ollama", "lms"),
+        default="transformers",
+        help="inference backend whose artifacts are aggregated (default transformers)",
+    )
+    args = parser.parse_args()
+    backend = args.backend
+
     registry = load_registry(ROOT)
     summaries = []
     flat_groups = []
@@ -24,16 +35,18 @@ def main() -> int:
     for model_key, model in sorted(registry.items(), key=lambda item: item[1]["index"]):
         slug = model_slug(model_key)
         packet_path = ROOT / "packets" / f"{slug}-full.json"
-        response_path = ROOT / "artifacts" / "full" / slug / "responses.jsonl"
+        response_path = ROOT / "artifacts" / "full" / backend / slug / "responses.jsonl"
         if not packet_path.is_file() or not response_path.is_file():
             raise FileNotFoundError(
-                f"full results are missing for model index {model['index']} ({model_key})"
+                f"full results are missing for model index {model['index']} ({model_key}) "
+                f"with backend {backend}"
             )
         result = analyze(read_json(packet_path), load_jsonl(response_path))
         total_responses += result["validation"]["n_responses"]
         summaries.append({
             "index": model["index"],
             "model_key": model_key,
+            "backend": backend,
             "responses": result["validation"]["n_responses"],
             "manual_review_count": result["manual_review_count"],
             "analysis_sha256": result["analysis_sha256"],
@@ -41,7 +54,7 @@ def main() -> int:
         for group in result["group_metrics"]:
             flat_groups.append({"index": model["index"], "model_key": model_key, **group})
 
-    output_dir = ROOT / "artifacts" / "full"
+    output_dir = ROOT / "artifacts" / "full" / backend
     combined = {
         "schema_version": "kcb-tool-error-study-summary-v1",
         "status": "complete",

@@ -42,40 +42,162 @@ list_models() {
   echo '4  mistral-7b-instruct-v0.3       mistralai/Mistral-7B-Instruct-v0.3'
 }
 
+# Accept either a registry key ("llama-3.1-8b-instruct") or an index (0..4).
+# Sets MODEL_KEY and SLUG. Exits with the registry listing on unknown keys.
+resolve_model() {
+  selector=$1
+  case "$selector" in
+    ''|*[!0-9]*)
+      MODEL_KEY=$selector
+      SLUG=$("$PYTHON_BIN" -c 'import sys; from kcb.io_utils import model_slug; print(model_slug(sys.argv[1]))' "$selector")
+      ;;
+    *)
+      MODEL_KEY=$(model_key_for_index "$selector")
+      SLUG=$(slug_for_index "$selector")
+      ;;
+  esac
+  if ! "$PYTHON_BIN" -c 'import sys; from pathlib import Path; from kcb.packets import load_registry; sys.exit(0 if sys.argv[1] in load_registry(Path(".")) else 1)' "$MODEL_KEY" >/dev/null 2>&1; then
+    echo "ERROR: unknown model key '$MODEL_KEY'." >&2
+    echo "Known models:" >&2
+    list_models >&2
+    exit 2
+  fi
+}
+
+# Parse run options into shell globals. Defaults are stored in the globals
+# before any call so that reuse across modes is safe.
+backend=transformers
+count=12
+cache_dir=${KCB_HF_HOME:-}
+ollama_host="http://localhost:11434"
+ollama_model=""
+lms_host="http://localhost:1234"
+lms_model=""
+limit_tasks=""
+force=""
+skip_conditions=""
+
+parse_run_args() {
+  while [ "$#" -gt 0 ]; do
+    case "$1" in
+      --backend) backend=$2; shift 2 ;;
+      --count) count=$2; shift 2 ;;
+      --cache-dir) cache_dir=$2; shift 2 ;;
+      --ollama-host) ollama_host=$2; shift 2 ;;
+      --ollama-model) ollama_model=$2; shift 2 ;;
+      --lms-host) lms_host=$2; shift 2 ;;
+      --lms-model) lms_model=$2; shift 2 ;;
+      --limit-tasks) limit_tasks=$2; shift 2 ;;
+      --force) force=1; shift ;;
+      --skip-conditions) skip_conditions=$2; shift 2 ;;
+      *) echo "ERROR: unknown option: $1" >&2; exit 2 ;;
+    esac
+  done
+  case "$backend" in
+    mock|vllm|transformers|ollama|lms) ;;
+    *) echo "ERROR: --backend must be mock, vllm, transformers, ollama, or lms." >&2; exit 2 ;;
+  esac
+}
+
+# mode is smoke or full. MODEL_KEY and SLUG must already be resolved.
 real_run() {
   mode=$1
-  index=$2
-  model_key=$(model_key_for_index "$index")
-  slug=$(slug_for_index "$index")
-  packet="packets/${slug}-${mode}.json"
-  out_dir="artifacts/${mode}/${slug}"
+  if [ "$mode" = 'smoke' ]; then
+    packet="packets/${SLUG}-review.json"
+  else
+    packet="packets/${SLUG}-full.json"
+  fi
+  out_dir="artifacts/${mode}/${backend}/${SLUG}"
 
-  "$PYTHON_BIN" scripts/preflight.py --runtime --model-key "$model_key"
+  if [ "$backend" = 'mock' ]; then
+    "$PYTHON_BIN" scripts/preflight.py
+  else
+    set -- --runtime --model-key "$MODEL_KEY" --backend "$backend"
+    if [ "$backend" = 'ollama' ]; then
+      set -- "$@" --ollama-host "$ollama_host"
+    fi
+    if [ "$backend" = 'lms' ]; then
+      set -- "$@" --lms-host "$lms_host"
+    fi
+    "$PYTHON_BIN" scripts/preflight.py "$@"
+  fi
+
   if [ "$mode" = 'smoke' ]; then
     "$PYTHON_BIN" scripts/build_packet.py \
-      --model-key "$model_key" --mode review --count 12 --output "$packet"
+      --model-key "$MODEL_KEY" --mode review --count "$count" --output "$packet"
   else
     "$PYTHON_BIN" scripts/build_packet.py \
-      --model-key "$model_key" --mode full --output "$packet"
+      --model-key "$MODEL_KEY" --mode full --output "$packet"
   fi
-  "$PYTHON_BIN" scripts/run_experiment.py \
-    --model-key "$model_key" --packet "$packet" --out-dir "$out_dir" --backend vllm
-  "$PYTHON_BIN" scripts/validate_results.py \
-    --packet "$packet" --responses "$out_dir/responses.jsonl"
+
+  set -- --model-key "$MODEL_KEY" --packet "$packet" --out-dir "$out_dir" --backend "$backend"
+  if [ -n "$cache_dir" ]; then
+    set -- "$@" --cache-dir "$cache_dir"
+  fi
+  if [ -n "$ollama_host" ]; then
+    set -- "$@" --ollama-host "$ollama_host"
+  fi
+  if [ -n "$ollama_model" ]; then
+    set -- "$@" --ollama-model "$ollama_model"
+  fi
+  if [ -n "$lms_host" ]; then
+    set -- "$@" --lms-host "$lms_host"
+  fi
+  if [ -n "$lms_model" ]; then
+    set -- "$@" --lms-model "$lms_model"
+  fi
+  if [ -n "$limit_tasks" ]; then
+    set -- "$@" --limit-tasks "$limit_tasks"
+  fi
+  if [ "$force" = 1 ]; then
+    set -- "$@" --force
+  fi
+  if [ -n "$skip_conditions" ]; then
+    set -- "$@" --skip-conditions "$skip_conditions"
+  fi
+
+  "$PYTHON_BIN" scripts/run_experiment.py "$@"
+
+  set -- --packet "$packet" --responses "$out_dir/responses.jsonl"
+  if [ -n "$limit_tasks" ] || [ -n "$skip_conditions" ]; then
+    set -- "$@" --allow-partial
+  fi
+  "$PYTHON_BIN" scripts/validate_results.py "$@"
 }
 
 usage() {
   cat <<'EOF'
 Usage:
   sh run_scripts.sh --dry_run
-  sh run_scripts.sh --smoke_test MODEL_INDEX
-  sh run_scripts.sh --full_test MODEL_INDEX
-  sh run_scripts.sh --full_test all
-  sh run_scripts.sh --preflight MODEL_INDEX
-  sh run_scripts.sh --aggregate
+  sh run_scripts.sh --run MODEL [OPTIONS]
+  sh run_scripts.sh --smoke_test MODEL [OPTIONS]
+  sh run_scripts.sh --full_test MODEL|all [OPTIONS]
+  sh run_scripts.sh --preflight MODEL [--backend BACKEND]
+  sh run_scripts.sh --aggregate [--backend BACKEND]
   sh run_scripts.sh --list_models
 
-MODEL_INDEX is 0..4. Each real invocation loads exactly one model.
+MODEL is a registry model key (e.g. llama-3.1-8b-instruct) or an index 0..4.
+A bare MODEL as the first argument is the same as --run MODEL.
+
+OPTIONS:
+  --backend mock|vllm|transformers|ollama|lms   inference backend
+                                                (default: transformers)
+  --count N                  review/smoke packet size (default: 12)
+  --cache-dir PATH           Hugging Face cache dir (default: $KCB_HF_HOME)
+  --ollama-host URL          Ollama server base URL (default: http://localhost:11434)
+  --ollama-model NAME        Ollama model tag (default: last path segment of hf repo)
+  --lms-host URL             LM Studio server base URL (default: http://localhost:1234)
+  --lms-model NAME           LM Studio model name (default: last path segment of hf repo)
+  --limit-tasks N            run at most N tasks (good for quick tests)
+  --force                    ignore existing results and rerun everything
+  --skip-conditions LIST     comma-separated error kinds to skip
+                             (service_503,timeout,permission_denied)
+
+Examples:
+  sh run_scripts.sh llama-3.1-8b-instruct --backend transformers
+  sh run_scripts.sh 2 --backend lms --lms-host http://10.16.98.67:1234 --limit-tasks 10
+  sh run_scripts.sh --smoke_test 0 --backend ollama --limit-tasks 6
+  sh run_scripts.sh --full_test all --backend transformers
 EOF
 }
 
@@ -95,28 +217,57 @@ case "${1:-}" in
       --responses 'artifacts/dry_run/responses.jsonl'
     ;;
   --smoke_test)
-    [ "$#" -eq 2 ] || { usage >&2; exit 2; }
-    real_run smoke "$2"
+    [ "$#" -ge 2 ] || { usage >&2; exit 2; }
+    selector=$2
+    shift 2
+    resolve_model "$selector"
+    parse_run_args "$@"
+    real_run smoke
     ;;
   --full_test)
-    [ "$#" -eq 2 ] || { usage >&2; exit 2; }
-    if [ "$2" = 'all' ]; then
+    [ "$#" -ge 2 ] || { usage >&2; exit 2; }
+    selector=$2
+    shift 2
+    parse_run_args "$@"
+    if [ "$selector" = 'all' ]; then
       for index in 0 1 2 3 4; do
-        real_run full "$index"
+        MODEL_KEY=$(model_key_for_index "$index")
+        SLUG=$(slug_for_index "$index")
+        real_run full
       done
-      "$PYTHON_BIN" scripts/aggregate_study.py
+      "$PYTHON_BIN" scripts/aggregate_study.py --backend "$backend"
     else
-      real_run full "$2"
+      resolve_model "$selector"
+      real_run full
     fi
     ;;
-  --aggregate)
-    [ "$#" -eq 1 ] || { usage >&2; exit 2; }
-    "$PYTHON_BIN" scripts/aggregate_study.py
+  --run)
+    [ "$#" -ge 2 ] || { usage >&2; exit 2; }
+    selector=$2
+    shift 2
+    resolve_model "$selector"
+    parse_run_args "$@"
+    real_run full
     ;;
   --preflight)
-    [ "$#" -eq 2 ] || { usage >&2; exit 2; }
-    model_key=$(model_key_for_index "$2")
-    "$PYTHON_BIN" scripts/preflight.py --runtime --model-key "$model_key"
+    [ "$#" -ge 2 ] || { usage >&2; exit 2; }
+    selector=$2
+    shift 2
+    resolve_model "$selector"
+    parse_run_args "$@"
+    set -- --runtime --model-key "$MODEL_KEY" --backend "$backend"
+    if [ "$backend" = 'ollama' ]; then
+      set -- "$@" --ollama-host "$ollama_host"
+    fi
+    if [ "$backend" = 'lms' ]; then
+      set -- "$@" --lms-host "$lms_host"
+    fi
+    "$PYTHON_BIN" scripts/preflight.py "$@"
+    ;;
+  --aggregate)
+    shift
+    parse_run_args "$@"
+    "$PYTHON_BIN" scripts/aggregate_study.py --backend "$backend"
     ;;
   --list_models)
     list_models
@@ -125,7 +276,18 @@ case "${1:-}" in
     usage
     ;;
   *)
-    usage >&2
-    exit 2
+    case "${1:-}" in
+      -*)
+        usage >&2
+        exit 2
+        ;;
+      *)
+        selector=$1
+        shift
+        resolve_model "$selector"
+        parse_run_args "$@"
+        real_run full
+        ;;
+    esac
     ;;
 esac

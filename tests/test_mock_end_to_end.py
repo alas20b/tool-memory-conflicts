@@ -37,6 +37,14 @@ class MockEndToEndTests(unittest.TestCase):
                 minimum_cache_free_gb=0,
                 seed=20260704,
                 hash_weights=False,
+                limit_tasks=0,
+                skip_conditions="",
+                force=False,
+                ollama_host="http://localhost:11434",
+                ollama_model="",
+                lms_host="http://localhost:1234",
+                lms_model="",
+                request_timeout=300,
             )
             self.assertEqual(run(args), 0)
             first = load_jsonl(output_dir / "responses.jsonl")

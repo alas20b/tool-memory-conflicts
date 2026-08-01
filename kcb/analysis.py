@@ -165,8 +165,8 @@ def _paired_comparisons(responses: list[dict], seed: int) -> list[dict]:
     return comparisons
 
 
-def analyze(packet: dict, responses: list[dict], *, seed: int = 20260704) -> dict:
-    validation = validate_responses(packet, responses, require_complete=True)
+def analyze(packet: dict, responses: list[dict], *, seed: int = 20260704, require_complete: bool = True) -> dict:
+    validation = validate_responses(packet, responses, require_complete=require_complete)
     groups: list[dict] = []
     for error_index, error_kind in enumerate(ERROR_KINDS):
         error_rows = [row for row in responses if row["error_kind"] == error_kind]
@@ -185,7 +185,8 @@ def analyze(packet: dict, responses: list[dict], *, seed: int = 20260704) -> dic
     for left, right in (("service_503", "timeout"), ("service_503", "permission_denied"), ("timeout", "permission_denied")):
         counter: Counter = Counter()
         for values in by_question.values():
-            counter[f"{values[left]['behavior']} -> {values[right]['behavior']}"] += 1
+            if left in values and right in values:
+                counter[f"{values[left]['behavior']} -> {values[right]['behavior']}"] += 1
         transition_counts[f"{left} vs {right}"] = counter
 
     return {
@@ -200,8 +201,15 @@ def analyze(packet: dict, responses: list[dict], *, seed: int = 20260704) -> dic
     }
 
 
-def write_analysis(output_dir: Path, packet: dict, responses: list[dict], *, seed: int = 20260704) -> dict:
-    result = analyze(packet, responses, seed=seed)
+def write_analysis(
+    output_dir: Path,
+    packet: dict,
+    responses: list[dict],
+    *,
+    seed: int = 20260704,
+    require_complete: bool = True,
+) -> dict:
+    result = analyze(packet, responses, seed=seed, require_complete=require_complete)
     atomic_write_json(output_dir / "analysis.json", result)
 
     buffer = io.StringIO(newline="")

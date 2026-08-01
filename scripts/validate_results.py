@@ -15,11 +15,16 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--packet", type=Path, required=True)
     parser.add_argument("--responses", type=Path, required=True)
+    parser.add_argument(
+        "--allow-partial",
+        action="store_true",
+        help="accept an incomplete run (used with --limit-tasks/--skip-conditions)",
+    )
     args = parser.parse_args()
     check = validate_responses(
         read_json(args.packet),
         load_jsonl(args.responses),
-        require_complete=True,
+        require_complete=not args.allow_partial,
     )
     print(json.dumps({**check, "responses_sha256": sha256_file(args.responses)}, indent=2))
     return 0

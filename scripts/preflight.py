@@ -88,26 +88,86 @@ def version(name: str) -> str:
         raise RuntimeError(f"required runtime package is missing: {name}") from error
 
 
-def runtime_checks(model_key: str) -> dict:
+def _optional_version(name: str) -> str | None:
+    try:
+        return importlib.metadata.version(name)
+    except importlib.metadata.PackageNotFoundError:
+        return None
+
+
+def check_remote_host(host: str, backend: str) -> None:
+    import urllib.request
+
+    base = host.rstrip("/")
+    try:
+        with urllib.request.urlopen(base, timeout=10) as response:
+            status = response.status
+    except Exception as error:
+        raise RuntimeError(f"cannot reach {backend} host {host}: {error}") from error
+    if status >= 500:
+        raise RuntimeError(f"{backend} host {host} returned HTTP {status}")
+
+
+def runtime_checks(model_key: str, backend: str, *, ollama_host: str = "", lms_host: str = "") -> dict:
     registry = load_registry(ROOT)
     if model_key not in registry:
         raise ValueError(f"unknown model key {model_key!r}")
     model = registry[model_key]
-    versions = {name: version(name) for name in ("numpy", "vllm", "torch", "huggingface-hub")}
-    if versions["numpy"] != "1.26.4":
-        raise RuntimeError(f"expected numpy 1.26.4, found {versions['numpy']}")
-    if versions["vllm"] != "0.8.5":
-        raise RuntimeError(f"expected vllm 0.8.5, found {versions['vllm']}")
+    token = os.environ.get("HF_TOKEN") or os.environ.get("HF-TOKEN")
+    if token:
+        os.environ["HF_TOKEN"] = token
+
+    versions: dict[str, str | None] = {
+        "numpy": _optional_version("numpy"),
+        "vllm": _optional_version("vllm"),
+        "torch": _optional_version("torch"),
+        "transformers": _optional_version("transformers"),
+        "huggingface-hub": _optional_version("huggingface-hub"),
+    }
+    report = {
+        "status": "passed",
+        "model_key": model_key,
+        "hf_repo": model["hf_repo"],
+        "backend": backend,
+        "versions": versions,
+    }
+
+    if backend in ("mock", "ollama", "lms"):
+        if backend == "ollama":
+            host = ollama_host or "http://localhost:11434"
+            check_remote_host(host, backend)
+            report["host"] = host
+        elif backend == "lms":
+            host = lms_host or "http://localhost:1234"
+            check_remote_host(host, backend)
+            report["host"] = host
+        return report
+
+    if backend == "transformers":
+        version("torch")
+        version("transformers")
+        version("huggingface-hub")
+    else:
+        version("numpy")
+        version("vllm")
+        version("torch")
+        version("huggingface-hub")
+        if versions["numpy"] != "1.26.4":
+            raise RuntimeError(f"expected numpy 1.26.4, found {versions['numpy']}")
+        if versions["vllm"] != "0.8.5":
+            raise RuntimeError(f"expected vllm 0.8.5, found {versions['vllm']}")
 
     import torch
 
-    if not torch.cuda.is_available() or torch.cuda.device_count() < 1:
-        raise RuntimeError("no CUDA GPU is visible to PyTorch")
-    token = os.environ.get("HF_TOKEN") or os.environ.get("HF-TOKEN")
+    gpu_available = torch.cuda.is_available() and torch.cuda.device_count() >= 1
+    if backend == "vllm":
+        if not gpu_available:
+            raise RuntimeError("no CUDA GPU is visible to PyTorch")
+    report["gpu_count"] = torch.cuda.device_count() if gpu_available else 0
+    report["gpu_0"] = torch.cuda.get_device_name(0) if gpu_available else None
+
     if model["gated"] and not token:
         raise RuntimeError(f"{model['hf_repo']} is gated but HF_TOKEN is not set")
-    if token:
-        os.environ["HF_TOKEN"] = token
 
     from huggingface_hub import HfApi
 
@@ -135,30 +195,35 @@ def runtime_checks(model_key: str) -> dict:
             f"only {free_gb:.1f} GiB is free in {cache}; "
             f"{config['minimum_cache_free_gb']} GiB is required before an uncached model download"
         )
-    return {
-        "status": "passed",
-        "model_key": model_key,
-        "hf_repo": model["hf_repo"],
-        "resolved_revision": info.sha,
-        "gpu_count": torch.cuda.device_count(),
-        "gpu_0": torch.cuda.get_device_name(0),
-        "cache": str(cache),
-        "cache_free_gb": round(free_gb, 2),
-        "snapshot_already_cached": cached,
-        "versions": versions,
-    }
+    report["resolved_revision"] = info.sha
+    report["cache"] = str(cache)
+    report["cache_free_gb"] = round(free_gb, 2)
+    report["snapshot_already_cached"] = cached
+    return report
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--runtime", action="store_true")
     parser.add_argument("--model-key")
+    parser.add_argument(
+        "--backend",
+        choices=("mock", "vllm", "transformers", "ollama", "lms"),
+        default="transformers",
+    )
+    parser.add_argument("--ollama-host", default="http://localhost:11434")
+    parser.add_argument("--lms-host", default="http://localhost:1234")
     args = parser.parse_args()
     report = {"offline": offline_checks()}
     if args.runtime:
         if not args.model_key:
             parser.error("--runtime requires --model-key")
-        report["runtime"] = runtime_checks(args.model_key)
+        report["runtime"] = runtime_checks(
+            args.model_key,
+            args.backend,
+            ollama_host=args.ollama_host,
+            lms_host=args.lms_host,
+        )
     print(json.dumps(report, ensure_ascii=False, indent=2))
     return 0
 
