@@ -173,7 +173,7 @@ Usage:
   sh run_scripts.sh --smoke_test MODEL [OPTIONS]
   sh run_scripts.sh --full_test MODEL|all [OPTIONS]
   sh run_scripts.sh --preflight MODEL [--backend BACKEND]
-  sh run_scripts.sh --aggregate [--backend BACKEND]
+  sh run_scripts.sh --aggregate [--backend BACKEND|all]
   sh run_scripts.sh --list_models
 
 MODEL is a registry model key (e.g. llama-3.1-8b-instruct) or an index 0..4.
@@ -266,8 +266,19 @@ case "${1:-}" in
     ;;
   --aggregate)
     shift
-    parse_run_args "$@"
-    "$PYTHON_BIN" scripts/aggregate_study.py --backend "$backend"
+    aggregate_backend=transformers
+    while [ "$#" -gt 0 ]; do
+      case "$1" in
+        --backend) aggregate_backend=$2; shift 2 ;;
+        mock|vllm|transformers|ollama|lms|all) aggregate_backend=$1; shift ;;
+        *) echo "ERROR: unknown option: $1" >&2; exit 2 ;;
+      esac
+    done
+    case "$aggregate_backend" in
+      mock|vllm|transformers|ollama|lms|all) ;;
+      *) echo "ERROR: --backend must be mock, vllm, transformers, ollama, lms, or all." >&2; exit 2 ;;
+    esac
+    "$PYTHON_BIN" scripts/aggregate_study.py --backend "$aggregate_backend"
     ;;
   --list_models)
     list_models
