@@ -1,38 +1,208 @@
 {
-  "schema_version": "kcb-input-manifest-v1",
-  "generated_at": "2026-08-01T18:00:55Z",
-  "files": {
-    "data/episodes_v1_full_near_pv0_poolv3.json": {
-      "bytes": 6511795,
-      "sha256": "f65816818452e6e712a488b875a1877e0001ec9cad68a6813e0bcb70814f706e"
+  "schema_version": "kcb-open-input-manifest-v1",
+  "created_at": "2026-08-01T20:59:07Z",
+  "file_count": 40,
+  "note": "Dynamic profiles, packets, artifacts, caches, and this non-self-hashing manifest are excluded.",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "size_bytes": 100,
+      "sha256": "0a578ecf9cb10802585458ff3238749166ae8f07244c69d36c1fe12eecf5b0b4"
     },
-    "experiment_config.json": {
-      "bytes": 487,
-      "sha256": "4b261a41797863553ceca5460edc392a0394c49f532e0c55ed114b44d2439bf6"
+    {
+      "path": ".github/workflows/dry-run.yml",
+      "size_bytes": 264,
+      "sha256": "0e2cf3a00bad78332f73cc18ebba9cd4764f03977ef4e5eeb114882c6a9b639b"
     },
-    "memory_labels/base_near_pv0_qc_metrics_v1.json": {
-      "bytes": 852001,
-      "sha256": "f5d01b02342e931f606d43d94c3e3c17a890c8046583acb5bb04753e6e61f0ea"
+    {
+      "path": ".gitignore",
+      "size_bytes": 197,
+      "sha256": "51d9a42214581e695ca2b20deedb5d7f9e948921b1596119f8213c509231e9af"
     },
-    "memory_labels/gemma_near_pv0_qc_metrics_v1.json": {
-      "bytes": 808509,
-      "sha256": "7b3f7ce104eb584812cac7f22554b2a5c809b490269ad069c23ac07ab3796b44"
+    {
+      "path": "data/questions_280.json",
+      "size_bytes": 669664,
+      "sha256": "7c76641be8443e6e211d811f7800a2e007b81c3af49b4fd03e9927f574b7daf0"
     },
-    "memory_labels/llamai_near_pv0_qc_metrics_v1.json": {
-      "bytes": 947904,
-      "sha256": "e8b875eb2202a948a5d83476f5a5e11659781528db7f3def26a3bcb2792e267f"
+    {
+      "path": "data/review_examples_12x3.json",
+      "size_bytes": 82305,
+      "sha256": "c6ae6bc6c0a8a89fe1dc45516026e4eae1431d6b86b19b4cbdf2c5afe340d5d1"
     },
-    "memory_labels/mistral_near_pv0_qc_metrics_v1.json": {
-      "bytes": 955573,
-      "sha256": "68070bcfd779a834c31caff9fb7f6fb040e21d4ae1c8b7a7035e3605bce649be"
+    {
+      "path": "eun_scripts.sh",
+      "size_bytes": 218,
+      "sha256": "d159802b5fa6d93d675d78fc8267c9bfe55d4a490957bc1e94302046a6fae7e7"
     },
-    "memory_labels/qwen_near_pv0_qc_metrics_v1.json": {
-      "bytes": 885732,
-      "sha256": "2c9a6516d799a409f878eea01c5ff61612afe3d34b0f49e71d93d16d7bdf2533"
+    {
+      "path": "experiment_config.json",
+      "size_bytes": 329,
+      "sha256": "84e0fc5bef39feb8b51d56bfef15aab8b2c7370c5853f81d42c44a9e8b6c7d27"
     },
-    "model_registry.json": {
-      "bytes": 1378,
-      "sha256": "7d969cf78fe266c558f331c1dfe046fddc55bba3860c81e82eebe58eedf9d82b"
+    {
+      "path": "kcb_open/__init__.py",
+      "size_bytes": 66,
+      "sha256": "920b3d4fdafa296972967967b5d90fa7f0d361ec1edb210a532bea16868e7aaf"
+    },
+    {
+      "path": "kcb_open/aggregate.py",
+      "size_bytes": 5089,
+      "sha256": "a371ea6c5abac50521d1550da08676f308132e6265b1e44bdb864aa13ab0c94a"
+    },
+    {
+      "path": "kcb_open/analysis.py",
+      "size_bytes": 8820,
+      "sha256": "9ce92e214c06ae278aee8d13c13c5c9a0c061be86172024a8bc5cad03fe4f414"
+    },
+    {
+      "path": "kcb_open/backends.py",
+      "size_bytes": 15656,
+      "sha256": "083c8b3124dd27d5255dbf1e22c050355d8882749f5f551376fb03adbe098bb6"
+    },
+    {
+      "path": "kcb_open/io_utils.py",
+      "size_bytes": 4250,
+      "sha256": "8064aecb87e63790e0f633d291683bdea1298fec079331f2d0fb97265956dda8"
+    },
+    {
+      "path": "kcb_open/packets.py",
+      "size_bytes": 6948,
+      "sha256": "f698fedd781ddb00542e89810f6320823c624fd5b9d3d8d534c111eb9dcb5a01"
+    },
+    {
+      "path": "kcb_open/profiles.py",
+      "size_bytes": 6847,
+      "sha256": "f8343b8d1e70398475daff21237684fcdacdacc8a011dc7fa54b6681939abf92"
+    },
+    {
+      "path": "kcb_open/prompts.py",
+      "size_bytes": 3452,
+      "sha256": "74b109749c02860189edfedd98b97f3577963a7bb170752d3d4ef1af2d4b2c8f"
+    },
+    {
+      "path": "kcb_open/registry.py",
+      "size_bytes": 2233,
+      "sha256": "d8cf9db2440ad83148490270a83280962fcb1322d92fbfbbb60eb1b1dce62eb4"
+    },
+    {
+      "path": "kcb_open/runner.py",
+      "size_bytes": 15884,
+      "sha256": "58e70184836f78fe7bd8f9b61049b815199910ccb6867de2fd7bb2cf121d6bf3"
+    },
+    {
+      "path": "kcb_open/scoring.py",
+      "size_bytes": 3599,
+      "sha256": "ef2eca3060c757ef34568488234afc2f97ff3943abae7c60a3cce6c63c5a4224"
+    },
+    {
+      "path": "kcb_open/validation.py",
+      "size_bytes": 7168,
+      "sha256": "9281bab49f97a70c21d78367bf711d019ea888aaf3e8dadde023fbc3f211429c"
+    },
+    {
+      "path": "model_registry.json",
+      "size_bytes": 2869,
+      "sha256": "061ff3ed3360ca9cf68147ecf0c424c61f86e63df1bbc1b4c7003cb689668df4"
+    },
+    {
+      "path": "OPERATOR_INSTRUCTIONS.md",
+      "size_bytes": 3057,
+      "sha256": "bb1c599169569889098fe76e89a6bbae2b9d458431e7266f8a43cfa4b045dd84"
+    },
+    {
+      "path": "PROTOCOL.md",
+      "size_bytes": 6068,
+      "sha256": "62744987e14eec37091078a19c22ba0ea6e74a990bccaa8f38bcd5b196654575"
+    },
+    {
+      "path": "README.md",
+      "size_bytes": 6399,
+      "sha256": "5dedde34af8b7ebb6d64a1f5d22f3d3b7596df252a1106f0ba752715bf37ae2c"
+    },
+    {
+      "path": "requirements-remote.txt",
+      "size_bytes": 72,
+      "sha256": "0054fac79a625c9cbc78646b8cd8757631113600536d73b90b7fed5da300ef0d"
+    },
+    {
+      "path": "requirements-transformers.txt",
+      "size_bytes": 169,
+      "sha256": "f03f901ca3e1dc9680909ae4946c84c05750e287df2c1135a7b31d570db88749"
+    },
+    {
+      "path": "run_scripts.sh",
+      "size_bytes": 2456,
+      "sha256": "63d02ac5744951d986ec52dc473f5b5fbb26b70688a9708b04d104bb5937951a"
+    },
+    {
+      "path": "scripts/_common.py",
+      "size_bytes": 336,
+      "sha256": "99af8fa707d0c9621cfbbfa4a13ce82a899ae2337211486442218c5aefe9962a"
+    },
+    {
+      "path": "scripts/aggregate.py",
+      "size_bytes": 803,
+      "sha256": "0cc30d66c6069617c27d803564aaf508eae5bacc7f03594ad6823e376fb78f30"
+    },
+    {
+      "path": "scripts/bundle_results.py",
+      "size_bytes": 2085,
+      "sha256": "37bc80b487a34ace71a1283f0887bdfe39858b8ecf3b5efd17f580f8a036a58b"
+    },
+    {
+      "path": "scripts/list_models.py",
+      "size_bytes": 683,
+      "sha256": "e60a4db5b4809d23442c2edbdd0b7ce729633f71d3033c423246506162480e7b"
+    },
+    {
+      "path": "scripts/make_input_manifest.py",
+      "size_bytes": 1208,
+      "sha256": "17471f5233f3b9dd9bf9ef06bc9dd2f38c0154b51454ea2b2c8493143f8bcbe5"
+    },
+    {
+      "path": "scripts/make_release.py",
+      "size_bytes": 1858,
+      "sha256": "3da713e00794cade6784cff63848a93ddb6f4c0dc0131bee204059f8b513e191"
+    },
+    {
+      "path": "scripts/make_review_examples.py",
+      "size_bytes": 1399,
+      "sha256": "3110d3a7a05ba18b60c668201d6cda72ee35c91170e152310dff89c2a1793b52"
+    },
+    {
+      "path": "scripts/preflight.py",
+      "size_bytes": 4376,
+      "sha256": "35ccf05bb8197eecc751a5870228f84e63c2a2b0e715135068a5424cc6979c74"
+    },
+    {
+      "path": "scripts/probe.py",
+      "size_bytes": 1901,
+      "sha256": "fb0a31f4d28a734d395d3f4e6cd51a171223e04d84920e66529edf7c08131c45"
+    },
+    {
+      "path": "scripts/run_stage.py",
+      "size_bytes": 1188,
+      "sha256": "d81d98ef71259a78cf1ec3fd261239c33a796dbb660265bf4f83666ecff12c8c"
+    },
+    {
+      "path": "scripts/validate.py",
+      "size_bytes": 808,
+      "sha256": "f238c793abcbb681c42776f56370a6c3a33146bea4963c93193182f6db461b2f"
+    },
+    {
+      "path": "tests/test_core.py",
+      "size_bytes": 5132,
+      "sha256": "86cb4dbce91bf3dd859662df08b04f004170361f7246f3d2eb0cf3fd74d9af0b"
+    },
+    {
+      "path": "tests/test_http_backends.py",
+      "size_bytes": 5995,
+      "sha256": "36b55a6309e0d5ecdd14195d7030dff17f1f488a79d3bca007e2c6ad332f6d41"
+    },
+    {
+      "path": "tests/test_runner.py",
+      "size_bytes": 4589,
+      "sha256": "cf315d9f102a65647a4dbef33b32a68cd4fc5ce9605fee4bdf45a85a8aace687"
     }
-  }
+  ]
 }

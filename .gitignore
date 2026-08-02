@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+hf_cache/
+.model-cache/
+return_bundles/
+artifacts/*
+!artifacts/.gitkeep
+packets/*
+!packets/.gitkeep
+profiles/*
+!profiles/.gitkeep
+*.log
+*.zip
+.DS_Store

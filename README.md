@@ -1,171 +1,137 @@
-# KCB prepared tool-error extension
+# Prepared tool-error experiment on open 7–9B models
 
-This repository runs the follow-up experiment on failure semantics in
-tool-augmented language models. It reuses the same post-QC KCB questions,
-model-specific memory labels, five 7-9B models, prompt version, and deterministic
-decoding settings. It changes only the prepared tool response:
+This repository is ready for an institution that permits only Ollama, LM Studio, or Hugging Face Transformers. It contains no Meta Llama model, makes no real tool calls, and does not need a hosted inference API. Each model receives an already prepared tool response containing one of three errors: HTTP 503, timeout, or permission denied.
 
-- original `503 Service Unavailable`;
-- `timeout`;
-- `permission denied`.
+The repository deliberately recalibrates each replacement model's closed-book answer before the error experiment. The earlier “model knows the answer” labels cannot be reused because those labels belong to the earlier model checkpoint and execution setup.
 
-The code never invokes a real tool. Every prompt already contains one complete,
-fixed error payload.
+## Registered model cohort
 
-## Model indices
+| Index | Model family | Parameters | Official/upstream checkpoint | Exact 10 GB-compatible GGUF |
+|---:|---|---:|---|---|
+| 0 | Qwen 2.5 | 7.61B | `Qwen/Qwen2.5-7B-Instruct` | bartowski Q6_K, 6.25 GB |
+| 1 | Mistral 7B | 7B | `mistralai/Mistral-7B-Instruct-v0.3` | bartowski Q6_K, 5.95 GB |
+| 2 | IBM Granite 3.3 | 8B | `ibm-granite/granite-3.3-8b-instruct` | IBM Q6_K, 6.71 GB |
+| 3 | OLMo 2 | 7B | `allenai/OLMo-2-1124-7B-Instruct` | bartowski Q6_K, 5.99 GB |
+| 4 | Yi 1.5 | 9B | `01-ai/Yi-1.5-9B-Chat` | LM Studio Community Q6_K, 7.25 GB |
 
-| Index | Experiment key | Hugging Face repository | Size | Interface |
-|---:|---|---|---:|---|
-| 0 | `completion:llama-3.1-8b` | `meta-llama/Llama-3.1-8B` | 8B | completion |
-| 1 | `llama-3.1-8b-instruct` | `meta-llama/Llama-3.1-8B-Instruct` | 8B | chat |
-| 2 | `qwen2.5-7b-instruct` | `Qwen/Qwen2.5-7B-Instruct` | 7.61B | chat |
-| 3 | `gemma-2-9b-it` | `google/gemma-2-9b-it` | 9B | chat |
-| 4 | `mistral-7b-instruct-v0.3` | `mistralai/Mistral-7B-Instruct-v0.3` | 7B | chat |
+Every registered upstream model and artifact is Apache-2.0. Exact repository names, filenames, byte counts, SHA256 hashes, and Ollama pull names are in `model_registry.json`. Bartowski and LM Studio Community are artifact converters/distributors; they are not substitute model families.
 
-Each command loads exactly one model. Model indices are a run selector, not
-experimental conditions.
+## First command: model-free dry run
 
-## 1. Offline dry run
-
-Run this first on any machine with Python 3.10+:
+From the repository root:
 
 ```sh
 sh run_scripts.sh --dry_run
 ```
 
-The dry run needs no GPU, model download, network, vLLM, or Hugging Face token.
-It performs all unit tests, verifies immutable input hashes, constructs review
-and full packets for all five models, proves that the 280-question source set is
-shared, runs 36 synthetic responses through the production scorer, tests
-resume behavior, and regenerates the analysis.
+Python 3.10 or newer is required. The dry run uses only the Python standard library. It validates all 280 questions, the five-model registry, all prompt triplets, scoring, resume behavior, and fake Ollama/LM Studio API servers. It neither downloads a model nor contacts an inference server.
 
-Synthetic artifacts are stored under `artifacts/dry_run/` and must never be
-reported as model results.
+## Recommended route with a 10 GB storage limit
 
-## 2. Install the real runtime
+Use either Ollama or LM Studio, Q6_K, and one model at a time. Do not use the Transformers route under a strict 10 GB disk quota: standard Transformers checkpoints for these 7–9B models are larger than the corresponding GGUF and are dequantized/native PyTorch executions, so they form a different precision cohort.
 
-Use Linux, Python 3.10 or 3.11, and a CUDA-compatible NVIDIA GPU:
-
-```sh
-python3 -m pip install --no-cache-dir -r requirements-runtime.txt
-export KCB_HF_HOME=/path/to/persistent/hf-cache
-export HF_TOKEN=hf_your_read_token
-```
-
-The token is needed only for gated repositories, but the corresponding model
-license must also be accepted in the same Hugging Face account. Never commit a
-token to this repository.
-
-The published KCB runs used one A100-80GB. This extension still loads one
-unquantized float16 7-9B model at a time. Reserve at least 22 GiB of free cache
-storage. A 10 GiB disk is insufficient; changing to quantized weights would
-change the experiment.
-
-## 3. Real-model smoke test
-
-Run 12 balanced questions and all three errors (36 generations) before the full
-experiment:
-
-```sh
-sh run_scripts.sh --smoke_test 0
-```
-
-This test downloads and loads the full selected model, so it validates actual
-Hugging Face access, CUDA, vLLM, chat/completion serialization, generation,
-checkpointing, scoring, and analysis. It is computation-light, not
-weight-download-light.
-
-Inspect `artifacts/smoke/<model>/completion.json`. Continue only when its status
-is `complete` and the command exits with code 0.
-
-## 4. Full experiment
-
-Run the first model:
-
-```sh
-sh run_scripts.sh --full_test 0
-```
-
-Then repeat with indices `1`, `2`, `3`, and `4`. Each full model run contains:
-
-- 280 shared questions;
-- 3 matched prepared-error prompts per question;
-- 840 independent generations.
-
-The complete five-model extension contains 4,200 generations.
-
-After all five individual runs finish, validate and combine them with:
-
-```sh
-sh run_scripts.sh --aggregate
-```
-
-This requires exactly 4,200 validated responses and writes
-`artifacts/full/study_summary.json` and
-`artifacts/full/study_group_metrics.csv`.
-
-To list the mapping at the command line:
+List exact artifacts:
 
 ```sh
 sh run_scripts.sh --list_models
 ```
 
-If enough persistent disk is available for all checkpoints, this convenience
-command runs the models sequentially:
+### Ollama
+
+Example for model 0:
 
 ```sh
-sh run_scripts.sh --full_test all
+ollama pull hf.co/bartowski/Qwen2.5-7B-Instruct-GGUF:Q6_K
+ollama serve
+ollama list
+sh run_scripts.sh --probe 0 ollama \
+  --server-url http://127.0.0.1:11434 \
+  --server-model hf.co/bartowski/Qwen2.5-7B-Instruct-GGUF:Q6_K
 ```
 
-The compatibility wrapper `eun_scripts.sh` accepts the same arguments.
+Copy the server model name exactly from `ollama list`. The probe verifies that the server reports Q6_K and records the Ollama version, tag/digest, model details, parameters, and complete chat template.
 
-## Result interpretation
+### LM Studio
 
-The automatic primary behavior labels are:
-
-- `answers_from_memory`: matches the previously elicited parametric answer;
-- `honest_abstention`: explicitly refuses or states that the answer is unknown;
-- `other_answer`: neither of the above.
-
-The last category is intentionally not called a hallucination automatically.
-Every `other_answer` and every format failure is copied to
-`manual_review_queue.jsonl`. The record also states whether the final answer is
-correct, allowing unexpected correct answers to be distinguished from
-unsupported or incorrect answers.
-
-`analysis.json` reports error-specific rates, memory-correctness strata,
-question-bootstrap 95% intervals, matched pairwise contrasts, and behavior
-transitions. `group_metrics.csv` is the tabular version.
-
-## Resume and integrity behavior
-
-Responses are appended and fsynced one record at a time. Rerunning the exact
-same command skips completed variant IDs. The runner refuses to resume if the
-packet, model commit, or decoding settings changed. It also refuses duplicate
-IDs, unknown IDs, incomplete triplets, prompt-hash mismatches, and score
-mismatches.
-
-The Hugging Face branch is resolved to an immutable commit before loading.
-That commit is passed to both the model and tokenizer. Cached safetensor files
-are hashed into `model_weights_manifest.json` before generation.
-
-See [EXPERIMENT_PROTOCOL.md](EXPERIMENT_PROTOCOL.md) for the methodology and
-[EXTERNAL_RUN_CHECKLIST.md](EXTERNAL_RUN_CHECKLIST.md) for the execution
-handoff.
-
-## Direct Python commands
-
-The shell interface is preferred, but each stage is independently callable:
+Download the exact file listed in `model_registry.json` with the LM Studio model browser or `lms get`, then load it with a stable identifier and start the server:
 
 ```sh
-PYTHONPATH=. python3 scripts/preflight.py
-PYTHONPATH=. python3 scripts/build_packet.py \
-  --model-key llama-3.1-8b-instruct --mode review --count 12 \
-  --output packets/llama-review.json
-PYTHONPATH=. python3 scripts/run_experiment.py \
-  --model-key llama-3.1-8b-instruct \
-  --packet packets/llama-review.json \
-  --out-dir artifacts/manual-smoke --backend vllm
+lms get https://huggingface.co/bartowski/Qwen2.5-7B-Instruct-GGUF/blob/main/Qwen2.5-7B-Instruct-Q6_K.gguf
+lms ls
+lms load <LM_STUDIO_MODEL_KEY> --identifier qwen25-q6 --context-length 4096 --gpu=auto
+lms server start
+sh run_scripts.sh --probe 0 lmstudio \
+  --server-url http://127.0.0.1:1234 \
+  --server-model qwen25-q6
 ```
 
-All paths are resolved from the repository root by the shell runner.
+The probe checks the `/api/v0/models` record and rejects a non-GGUF or non-Q6_K model. If the server requires authentication, set `LM_API_TOKEN` in the environment; never commit it.
+
+If the original `.gguf` file is accessible, append `--artifact-path /absolute/path/model.gguf` to either probe. This performs an exact SHA256 check. Without it, the profile clearly records `server_metadata_only` rather than claiming file-level verification.
+
+### Transformers (optional separate cohort)
+
+Install the institution's CUDA-compatible PyTorch first, then:
+
+```sh
+python3 -m pip install -r requirements-transformers.txt
+sh run_scripts.sh --probe 0 transformers
+```
+
+The probe resolves mutable Hugging Face `main` to an immutable commit, records weight-file metadata and library/GPU versions, and refuses CPU execution. Store Transformers outputs separately; the aggregator refuses to mix them with Ollama or LM Studio.
+
+## Safe execution sequence for each model
+
+The probe prints a path such as `profiles/ollama/qwen2.5-7b-instruct-….json`. Use that exact path below.
+
+1. Run the small real-model pilot (12 closed-book prompts plus 36 error prompts):
+
+   ```sh
+   sh run_scripts.sh --pilot profiles/ollama/<PROFILE>.json
+   ```
+
+2. Inspect/bundle the pilot. Only after its format is accepted, run the 280-question closed-book calibration:
+
+   ```sh
+   sh run_scripts.sh --calibrate profiles/ollama/<PROFILE>.json
+   ```
+
+3. Run the balanced 12-question smoke experiment (36 prompts), then the full experiment (840 prompts):
+
+   ```sh
+   sh run_scripts.sh --smoke profiles/ollama/<PROFILE>.json
+   sh run_scripts.sh --full profiles/ollama/<PROFILE>.json
+   ```
+
+   As a convenience, the last three commands can be run as:
+
+   ```sh
+   sh run_scripts.sh --full_test profiles/ollama/<PROFILE>.json
+   ```
+
+4. Bundle results for return:
+
+   ```sh
+   sh run_scripts.sh --bundle qwen-model0-results
+   ```
+
+5. Unload/remove that model only after the result bundle is safe, then download the next index. Repeat indices 0 through 4 one at a time.
+
+6. Once all five full runs from the same backend are present, aggregate them:
+
+   ```sh
+   sh run_scripts.sh --aggregate <PROFILE0> <PROFILE1> <PROFILE2> <PROFILE3> <PROFILE4>
+   ```
+
+The compatibility wrapper `eun_scripts.sh` is included, but `run_scripts.sh` is the canonical filename.
+
+## Where results appear
+
+- `profiles/`: immutable execution profiles.
+- `packets/`: exact generated prompt packets.
+- `artifacts/<backend>/<model>/<profile-prefix>/`: raw answers, labels, run specifications, completion hashes, analyses, CSV metrics, manual-review queues, and journals.
+- `return_bundles/`: ZIP archives generated for return; model weights and caches are excluded.
+
+Every stage is append-only and resumable. Repeating the identical command skips completed task IDs. Changed prompts, settings, profiles, duplicate IDs, missing responses, or altered automatic scores cause validation to fail instead of silently continuing.
+
+See `OPERATOR_INSTRUCTIONS.md` for the hand-off checklist and `PROTOCOL.md` for the full research design.

@@ -1,47 +1,82 @@
 {
-  "completion:llama-3.1-8b": {
-    "index": 0,
-    "hf_repo": "meta-llama/Llama-3.1-8B",
-    "requested_revision": "main",
-    "parameter_count": "8B",
-    "interface": "completion",
-    "gated": true,
-    "memory_labels": "memory_labels/base_near_pv0_qc_metrics_v1.json"
-  },
-  "llama-3.1-8b-instruct": {
-    "index": 1,
-    "hf_repo": "meta-llama/Llama-3.1-8B-Instruct",
-    "requested_revision": "main",
-    "parameter_count": "8B",
-    "interface": "chat",
-    "gated": true,
-    "memory_labels": "memory_labels/llamai_near_pv0_qc_metrics_v1.json"
-  },
   "qwen2.5-7b-instruct": {
-    "index": 2,
-    "hf_repo": "Qwen/Qwen2.5-7B-Instruct",
-    "requested_revision": "main",
+    "index": 0,
+    "family": "Qwen 2.5",
     "parameter_count": "7.61B",
-    "interface": "chat",
-    "gated": false,
-    "memory_labels": "memory_labels/qwen_near_pv0_qc_metrics_v1.json"
-  },
-  "gemma-2-9b-it": {
-    "index": 3,
-    "hf_repo": "google/gemma-2-9b-it",
+    "license": "Apache-2.0",
+    "upstream_hf_repo": "Qwen/Qwen2.5-7B-Instruct",
     "requested_revision": "main",
-    "parameter_count": "9B",
-    "interface": "chat",
-    "gated": true,
-    "memory_labels": "memory_labels/gemma_near_pv0_qc_metrics_v1.json"
+    "gguf": {
+      "repo": "bartowski/Qwen2.5-7B-Instruct-GGUF",
+      "filename": "Qwen2.5-7B-Instruct-Q6_K.gguf",
+      "quantization": "Q6_K",
+      "sha256": "489138dfed4f04cd6dea56e5a8423e4aa05a0318cce2a4a72250fe1278e97cf8",
+      "size_bytes": 6254199488,
+      "ollama_pull": "hf.co/bartowski/Qwen2.5-7B-Instruct-GGUF:Q6_K"
+    }
   },
   "mistral-7b-instruct-v0.3": {
-    "index": 4,
-    "hf_repo": "mistralai/Mistral-7B-Instruct-v0.3",
-    "requested_revision": "main",
+    "index": 1,
+    "family": "Mistral 7B",
     "parameter_count": "7B",
-    "interface": "chat",
-    "gated": false,
-    "memory_labels": "memory_labels/mistral_near_pv0_qc_metrics_v1.json"
+    "license": "Apache-2.0",
+    "upstream_hf_repo": "mistralai/Mistral-7B-Instruct-v0.3",
+    "requested_revision": "main",
+    "gguf": {
+      "repo": "bartowski/Mistral-7B-Instruct-v0.3-GGUF",
+      "filename": "Mistral-7B-Instruct-v0.3-Q6_K.gguf",
+      "quantization": "Q6_K",
+      "sha256": "757d75df89821a94841f341f3270b0709d36891dd8fbc41dfd059d213b54c3f5",
+      "size_bytes": 5950000000,
+      "ollama_pull": "hf.co/bartowski/Mistral-7B-Instruct-v0.3-GGUF:Q6_K"
+    }
+  },
+  "granite-3.3-8b-instruct": {
+    "index": 2,
+    "family": "IBM Granite 3.3",
+    "parameter_count": "8B",
+    "license": "Apache-2.0",
+    "upstream_hf_repo": "ibm-granite/granite-3.3-8b-instruct",
+    "requested_revision": "main",
+    "gguf": {
+      "repo": "ibm-granite/granite-3.3-8b-instruct-GGUF",
+      "filename": "granite-3.3-8b-instruct-Q6_K.gguf",
+      "quantization": "Q6_K",
+      "sha256": "b0fe6e279cf247a8119ca744286f53ce22890d871e26c3af38e12f5f9008b2bb",
+      "size_bytes": 6705464064,
+      "ollama_pull": "hf.co/ibm-granite/granite-3.3-8b-instruct-GGUF:Q6_K"
+    }
+  },
+  "olmo-2-1124-7b-instruct": {
+    "index": 3,
+    "family": "OLMo 2",
+    "parameter_count": "7B",
+    "license": "Apache-2.0",
+    "upstream_hf_repo": "allenai/OLMo-2-1124-7B-Instruct",
+    "requested_revision": "main",
+    "gguf": {
+      "repo": "bartowski/OLMo-2-1124-7B-Instruct-GGUF",
+      "filename": "OLMo-2-1124-7B-Instruct-Q6_K.gguf",
+      "quantization": "Q6_K",
+      "sha256": "82ad9a40e3c4f1d7322b8b383c24eaf8d61c9162ca84bc0f364848fbb11f014d",
+      "size_bytes": 5990000000,
+      "ollama_pull": "hf.co/bartowski/OLMo-2-1124-7B-Instruct-GGUF:Q6_K"
+    }
+  },
+  "yi-1.5-9b-chat": {
+    "index": 4,
+    "family": "Yi 1.5",
+    "parameter_count": "9B",
+    "license": "Apache-2.0",
+    "upstream_hf_repo": "01-ai/Yi-1.5-9B-Chat",
+    "requested_revision": "main",
+    "gguf": {
+      "repo": "lmstudio-community/Yi-1.5-9B-Chat-GGUF",
+      "filename": "Yi-1.5-9B-Chat-Q6_K.gguf",
+      "quantization": "Q6_K",
+      "sha256": "c4c56f607e5181ac225ada6e9f66eee67a4d16d7b25f67b9c376e212d153e907",
+      "size_bytes": 7245640192,
+      "ollama_pull": "hf.co/lmstudio-community/Yi-1.5-9B-Chat-GGUF:Q6_K"
+    }
   }
 }
