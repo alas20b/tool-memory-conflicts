@@ -1,0 +1,975 @@
+{
+  "offline": {
+    "status": "passed",
+    "models": [
+      {
+        "index": 0,
+        "model_key": "completion:llama-3.1-8b",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 147,
+          "incorrect": 130,
+          "absent": 3
+        }
+      },
+      {
+        "index": 1,
+        "model_key": "llama-3.1-8b-instruct",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 143,
+          "incorrect": 137,
+          "absent": 0
+        }
+      },
+      {
+        "index": 2,
+        "model_key": "qwen2.5-7b-instruct",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 110,
+          "incorrect": 160,
+          "absent": 10
+        }
+      },
+      {
+        "index": 3,
+        "model_key": "gemma-2-9b-it",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 137,
+          "incorrect": 112,
+          "absent": 31
+        }
+      },
+      {
+        "index": 4,
+        "model_key": "mistral-7b-instruct-v0.3",
+        "full_questions": 280,
+        "full_prompts": 840,
+        "review_questions": 12,
+        "review_prompts": 36,
+        "memory_counts": {
+          "correct": 129,
+          "incorrect": 143,
+          "absent": 8
+        }
+      }
+    ],
+    "shared_full_questions": 280,
+    "real_tool_calls": false
+  },
+  "runtime": {
+    "status": "passed",
+    "model_key": "mistral-7b-instruct-v0.3",
+    "hf_repo": "mistralai/Mistral-7B-Instruct-v0.3",
+    "backend": "transformers",
+    "versions": {
+      "numpy": "1.26.4",
+      "vllm": "0.8.5",
+      "torch": "2.6.0",
+      "transformers": "5.14.1",
+      "huggingface-hub": "1.26.0"
+    },
+    "gpu_count": 1,
+    "gpu_0": "NVIDIA TITAN RTX",
+    "resolved_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+    "cache": "/path/to/persistent/hf-cache",
+    "cache_free_gb": 423.42,
+    "snapshot_already_cached": true
+  }
+}
+{
+  "model_key": "mistral-7b-instruct-v0.3",
+  "questions": 280,
+  "prompts": 840,
+  "packet_content_sha256": "2251f2e4c45601e646d20c98074e9dc503fac43c7fd2d987fc9a0292c5191aef",
+  "error_kinds": [
+    "service_503",
+    "timeout",
+    "permission_denied"
+  ],
+  "path": "packets/mistral-7b-instruct-v0.3-full.json",
+  "file_sha256": "cc250f9cd32343a6a085fa25c24359d69f82477e46cc95e6f67aa1ca688bacd7"
+}
+checkpoint: 1/840
+checkpoint: 2/840
+checkpoint: 3/840
+checkpoint: 4/840
+checkpoint: 5/840
+checkpoint: 6/840
+checkpoint: 7/840
+checkpoint: 8/840
+checkpoint: 9/840
+checkpoint: 10/840
+checkpoint: 11/840
+checkpoint: 12/840
+checkpoint: 13/840
+checkpoint: 14/840
+checkpoint: 15/840
+checkpoint: 16/840
+checkpoint: 17/840
+checkpoint: 18/840
+checkpoint: 19/840
+checkpoint: 20/840
+checkpoint: 21/840
+checkpoint: 22/840
+checkpoint: 23/840
+checkpoint: 24/840
+checkpoint: 25/840
+checkpoint: 26/840
+checkpoint: 27/840
+checkpoint: 28/840
+checkpoint: 29/840
+checkpoint: 30/840
+checkpoint: 31/840
+checkpoint: 32/840
+checkpoint: 33/840
+checkpoint: 34/840
+checkpoint: 35/840
+checkpoint: 36/840
+checkpoint: 37/840
+checkpoint: 38/840
+checkpoint: 39/840
+checkpoint: 40/840
+checkpoint: 41/840
+checkpoint: 42/840
+checkpoint: 43/840
+checkpoint: 44/840
+checkpoint: 45/840
+checkpoint: 46/840
+checkpoint: 47/840
+checkpoint: 48/840
+checkpoint: 49/840
+checkpoint: 50/840
+checkpoint: 51/840
+checkpoint: 52/840
+checkpoint: 53/840
+checkpoint: 54/840
+checkpoint: 55/840
+checkpoint: 56/840
+checkpoint: 57/840
+checkpoint: 58/840
+checkpoint: 59/840
+checkpoint: 60/840
+checkpoint: 61/840
+checkpoint: 62/840
+checkpoint: 63/840
+checkpoint: 64/840
+checkpoint: 65/840
+checkpoint: 66/840
+checkpoint: 67/840
+checkpoint: 68/840
+checkpoint: 69/840
+checkpoint: 70/840
+checkpoint: 71/840
+checkpoint: 72/840
+checkpoint: 73/840
+checkpoint: 74/840
+checkpoint: 75/840
+checkpoint: 76/840
+checkpoint: 77/840
+checkpoint: 78/840
+checkpoint: 79/840
+checkpoint: 80/840
+checkpoint: 81/840
+checkpoint: 82/840
+checkpoint: 83/840
+checkpoint: 84/840
+checkpoint: 85/840
+checkpoint: 86/840
+checkpoint: 87/840
+checkpoint: 88/840
+checkpoint: 89/840
+checkpoint: 90/840
+checkpoint: 91/840
+checkpoint: 92/840
+checkpoint: 93/840
+checkpoint: 94/840
+checkpoint: 95/840
+checkpoint: 96/840
+checkpoint: 97/840
+checkpoint: 98/840
+checkpoint: 99/840
+checkpoint: 100/840
+checkpoint: 101/840
+checkpoint: 102/840
+checkpoint: 103/840
+checkpoint: 104/840
+checkpoint: 105/840
+checkpoint: 106/840
+checkpoint: 107/840
+checkpoint: 108/840
+checkpoint: 109/840
+checkpoint: 110/840
+checkpoint: 111/840
+checkpoint: 112/840
+checkpoint: 113/840
+checkpoint: 114/840
+checkpoint: 115/840
+checkpoint: 116/840
+checkpoint: 117/840
+checkpoint: 118/840
+checkpoint: 119/840
+checkpoint: 120/840
+checkpoint: 121/840
+checkpoint: 122/840
+checkpoint: 123/840
+checkpoint: 124/840
+checkpoint: 125/840
+checkpoint: 126/840
+checkpoint: 127/840
+checkpoint: 128/840
+checkpoint: 129/840
+checkpoint: 130/840
+checkpoint: 131/840
+checkpoint: 132/840
+checkpoint: 133/840
+checkpoint: 134/840
+checkpoint: 135/840
+checkpoint: 136/840
+checkpoint: 137/840
+checkpoint: 138/840
+checkpoint: 139/840
+checkpoint: 140/840
+checkpoint: 141/840
+checkpoint: 142/840
+checkpoint: 143/840
+checkpoint: 144/840
+checkpoint: 145/840
+checkpoint: 146/840
+checkpoint: 147/840
+checkpoint: 148/840
+checkpoint: 149/840
+checkpoint: 150/840
+checkpoint: 151/840
+checkpoint: 152/840
+checkpoint: 153/840
+checkpoint: 154/840
+checkpoint: 155/840
+checkpoint: 156/840
+checkpoint: 157/840
+checkpoint: 158/840
+checkpoint: 159/840
+checkpoint: 160/840
+checkpoint: 161/840
+checkpoint: 162/840
+checkpoint: 163/840
+checkpoint: 164/840
+checkpoint: 165/840
+checkpoint: 166/840
+checkpoint: 167/840
+checkpoint: 168/840
+checkpoint: 169/840
+checkpoint: 170/840
+checkpoint: 171/840
+checkpoint: 172/840
+checkpoint: 173/840
+checkpoint: 174/840
+checkpoint: 175/840
+checkpoint: 176/840
+checkpoint: 177/840
+checkpoint: 178/840
+checkpoint: 179/840
+checkpoint: 180/840
+checkpoint: 181/840
+checkpoint: 182/840
+checkpoint: 183/840
+checkpoint: 184/840
+checkpoint: 185/840
+checkpoint: 186/840
+checkpoint: 187/840
+checkpoint: 188/840
+checkpoint: 189/840
+checkpoint: 190/840
+checkpoint: 191/840
+checkpoint: 192/840
+checkpoint: 193/840
+checkpoint: 194/840
+checkpoint: 195/840
+checkpoint: 196/840
+checkpoint: 197/840
+checkpoint: 198/840
+checkpoint: 199/840
+checkpoint: 200/840
+checkpoint: 201/840
+checkpoint: 202/840
+checkpoint: 203/840
+checkpoint: 204/840
+checkpoint: 205/840
+checkpoint: 206/840
+checkpoint: 207/840
+checkpoint: 208/840
+checkpoint: 209/840
+checkpoint: 210/840
+checkpoint: 211/840
+checkpoint: 212/840
+checkpoint: 213/840
+checkpoint: 214/840
+checkpoint: 215/840
+checkpoint: 216/840
+checkpoint: 217/840
+checkpoint: 218/840
+checkpoint: 219/840
+checkpoint: 220/840
+checkpoint: 221/840
+checkpoint: 222/840
+checkpoint: 223/840
+checkpoint: 224/840
+checkpoint: 225/840
+checkpoint: 226/840
+checkpoint: 227/840
+checkpoint: 228/840
+checkpoint: 229/840
+checkpoint: 230/840
+checkpoint: 231/840
+checkpoint: 232/840
+checkpoint: 233/840
+checkpoint: 234/840
+checkpoint: 235/840
+checkpoint: 236/840
+checkpoint: 237/840
+checkpoint: 238/840
+checkpoint: 239/840
+checkpoint: 240/840
+checkpoint: 241/840
+checkpoint: 242/840
+checkpoint: 243/840
+checkpoint: 244/840
+checkpoint: 245/840
+checkpoint: 246/840
+checkpoint: 247/840
+checkpoint: 248/840
+checkpoint: 249/840
+checkpoint: 250/840
+checkpoint: 251/840
+checkpoint: 252/840
+checkpoint: 253/840
+checkpoint: 254/840
+checkpoint: 255/840
+checkpoint: 256/840
+checkpoint: 257/840
+checkpoint: 258/840
+checkpoint: 259/840
+checkpoint: 260/840
+checkpoint: 261/840
+checkpoint: 262/840
+checkpoint: 263/840
+checkpoint: 264/840
+checkpoint: 265/840
+checkpoint: 266/840
+checkpoint: 267/840
+checkpoint: 268/840
+checkpoint: 269/840
+checkpoint: 270/840
+checkpoint: 271/840
+checkpoint: 272/840
+checkpoint: 273/840
+checkpoint: 274/840
+checkpoint: 275/840
+checkpoint: 276/840
+checkpoint: 277/840
+checkpoint: 278/840
+checkpoint: 279/840
+checkpoint: 280/840
+checkpoint: 281/840
+checkpoint: 282/840
+checkpoint: 283/840
+checkpoint: 284/840
+checkpoint: 285/840
+checkpoint: 286/840
+checkpoint: 287/840
+checkpoint: 288/840
+checkpoint: 289/840
+checkpoint: 290/840
+checkpoint: 291/840
+checkpoint: 292/840
+checkpoint: 293/840
+checkpoint: 294/840
+checkpoint: 295/840
+checkpoint: 296/840
+checkpoint: 297/840
+checkpoint: 298/840
+checkpoint: 299/840
+checkpoint: 300/840
+checkpoint: 301/840
+checkpoint: 302/840
+checkpoint: 303/840
+checkpoint: 304/840
+checkpoint: 305/840
+checkpoint: 306/840
+checkpoint: 307/840
+checkpoint: 308/840
+checkpoint: 309/840
+checkpoint: 310/840
+checkpoint: 311/840
+checkpoint: 312/840
+checkpoint: 313/840
+checkpoint: 314/840
+checkpoint: 315/840
+checkpoint: 316/840
+checkpoint: 317/840
+checkpoint: 318/840
+checkpoint: 319/840
+checkpoint: 320/840
+checkpoint: 321/840
+checkpoint: 322/840
+checkpoint: 323/840
+checkpoint: 324/840
+checkpoint: 325/840
+checkpoint: 326/840
+checkpoint: 327/840
+checkpoint: 328/840
+checkpoint: 329/840
+checkpoint: 330/840
+checkpoint: 331/840
+checkpoint: 332/840
+checkpoint: 333/840
+checkpoint: 334/840
+checkpoint: 335/840
+checkpoint: 336/840
+checkpoint: 337/840
+checkpoint: 338/840
+checkpoint: 339/840
+checkpoint: 340/840
+checkpoint: 341/840
+checkpoint: 342/840
+checkpoint: 343/840
+checkpoint: 344/840
+checkpoint: 345/840
+checkpoint: 346/840
+checkpoint: 347/840
+checkpoint: 348/840
+checkpoint: 349/840
+checkpoint: 350/840
+checkpoint: 351/840
+checkpoint: 352/840
+checkpoint: 353/840
+checkpoint: 354/840
+checkpoint: 355/840
+checkpoint: 356/840
+checkpoint: 357/840
+checkpoint: 358/840
+checkpoint: 359/840
+checkpoint: 360/840
+checkpoint: 361/840
+checkpoint: 362/840
+checkpoint: 363/840
+checkpoint: 364/840
+checkpoint: 365/840
+checkpoint: 366/840
+checkpoint: 367/840
+checkpoint: 368/840
+checkpoint: 369/840
+checkpoint: 370/840
+checkpoint: 371/840
+checkpoint: 372/840
+checkpoint: 373/840
+checkpoint: 374/840
+checkpoint: 375/840
+checkpoint: 376/840
+checkpoint: 377/840
+checkpoint: 378/840
+checkpoint: 379/840
+checkpoint: 380/840
+checkpoint: 381/840
+checkpoint: 382/840
+checkpoint: 383/840
+checkpoint: 384/840
+checkpoint: 385/840
+checkpoint: 386/840
+checkpoint: 387/840
+checkpoint: 388/840
+checkpoint: 389/840
+checkpoint: 390/840
+checkpoint: 391/840
+checkpoint: 392/840
+checkpoint: 393/840
+checkpoint: 394/840
+checkpoint: 395/840
+checkpoint: 396/840
+checkpoint: 397/840
+checkpoint: 398/840
+checkpoint: 399/840
+checkpoint: 400/840
+checkpoint: 401/840
+checkpoint: 402/840
+checkpoint: 403/840
+checkpoint: 404/840
+checkpoint: 405/840
+checkpoint: 406/840
+checkpoint: 407/840
+checkpoint: 408/840
+checkpoint: 409/840
+checkpoint: 410/840
+checkpoint: 411/840
+checkpoint: 412/840
+checkpoint: 413/840
+checkpoint: 414/840
+checkpoint: 415/840
+checkpoint: 416/840
+checkpoint: 417/840
+checkpoint: 418/840
+checkpoint: 419/840
+checkpoint: 420/840
+checkpoint: 421/840
+checkpoint: 422/840
+checkpoint: 423/840
+checkpoint: 424/840
+checkpoint: 425/840
+checkpoint: 426/840
+checkpoint: 427/840
+checkpoint: 428/840
+checkpoint: 429/840
+checkpoint: 430/840
+checkpoint: 431/840
+checkpoint: 432/840
+checkpoint: 433/840
+checkpoint: 434/840
+checkpoint: 435/840
+checkpoint: 436/840
+checkpoint: 437/840
+checkpoint: 438/840
+checkpoint: 439/840
+checkpoint: 440/840
+checkpoint: 441/840
+checkpoint: 442/840
+checkpoint: 443/840
+checkpoint: 444/840
+checkpoint: 445/840
+checkpoint: 446/840
+checkpoint: 447/840
+checkpoint: 448/840
+checkpoint: 449/840
+checkpoint: 450/840
+checkpoint: 451/840
+checkpoint: 452/840
+checkpoint: 453/840
+checkpoint: 454/840
+checkpoint: 455/840
+checkpoint: 456/840
+checkpoint: 457/840
+checkpoint: 458/840
+checkpoint: 459/840
+checkpoint: 460/840
+checkpoint: 461/840
+checkpoint: 462/840
+checkpoint: 463/840
+checkpoint: 464/840
+checkpoint: 465/840
+checkpoint: 466/840
+checkpoint: 467/840
+checkpoint: 468/840
+checkpoint: 469/840
+checkpoint: 470/840
+checkpoint: 471/840
+checkpoint: 472/840
+checkpoint: 473/840
+checkpoint: 474/840
+checkpoint: 475/840
+checkpoint: 476/840
+checkpoint: 477/840
+checkpoint: 478/840
+checkpoint: 479/840
+checkpoint: 480/840
+checkpoint: 481/840
+checkpoint: 482/840
+checkpoint: 483/840
+checkpoint: 484/840
+checkpoint: 485/840
+checkpoint: 486/840
+checkpoint: 487/840
+checkpoint: 488/840
+checkpoint: 489/840
+checkpoint: 490/840
+checkpoint: 491/840
+checkpoint: 492/840
+checkpoint: 493/840
+checkpoint: 494/840
+checkpoint: 495/840
+checkpoint: 496/840
+checkpoint: 497/840
+checkpoint: 498/840
+checkpoint: 499/840
+checkpoint: 500/840
+checkpoint: 501/840
+checkpoint: 502/840
+checkpoint: 503/840
+checkpoint: 504/840
+checkpoint: 505/840
+checkpoint: 506/840
+checkpoint: 507/840
+checkpoint: 508/840
+checkpoint: 509/840
+checkpoint: 510/840
+checkpoint: 511/840
+checkpoint: 512/840
+checkpoint: 513/840
+checkpoint: 514/840
+checkpoint: 515/840
+checkpoint: 516/840
+checkpoint: 517/840
+checkpoint: 518/840
+checkpoint: 519/840
+checkpoint: 520/840
+checkpoint: 521/840
+checkpoint: 522/840
+checkpoint: 523/840
+checkpoint: 524/840
+checkpoint: 525/840
+checkpoint: 526/840
+checkpoint: 527/840
+checkpoint: 528/840
+checkpoint: 529/840
+checkpoint: 530/840
+checkpoint: 531/840
+checkpoint: 532/840
+checkpoint: 533/840
+checkpoint: 534/840
+checkpoint: 535/840
+checkpoint: 536/840
+checkpoint: 537/840
+checkpoint: 538/840
+checkpoint: 539/840
+checkpoint: 540/840
+checkpoint: 541/840
+checkpoint: 542/840
+checkpoint: 543/840
+checkpoint: 544/840
+checkpoint: 545/840
+checkpoint: 546/840
+checkpoint: 547/840
+checkpoint: 548/840
+checkpoint: 549/840
+checkpoint: 550/840
+checkpoint: 551/840
+checkpoint: 552/840
+checkpoint: 553/840
+checkpoint: 554/840
+checkpoint: 555/840
+checkpoint: 556/840
+checkpoint: 557/840
+checkpoint: 558/840
+checkpoint: 559/840
+checkpoint: 560/840
+checkpoint: 561/840
+checkpoint: 562/840
+checkpoint: 563/840
+checkpoint: 564/840
+checkpoint: 565/840
+checkpoint: 566/840
+checkpoint: 567/840
+checkpoint: 568/840
+checkpoint: 569/840
+checkpoint: 570/840
+checkpoint: 571/840
+checkpoint: 572/840
+checkpoint: 573/840
+checkpoint: 574/840
+checkpoint: 575/840
+checkpoint: 576/840
+checkpoint: 577/840
+checkpoint: 578/840
+checkpoint: 579/840
+checkpoint: 580/840
+checkpoint: 581/840
+checkpoint: 582/840
+checkpoint: 583/840
+checkpoint: 584/840
+checkpoint: 585/840
+checkpoint: 586/840
+checkpoint: 587/840
+checkpoint: 588/840
+checkpoint: 589/840
+checkpoint: 590/840
+checkpoint: 591/840
+checkpoint: 592/840
+checkpoint: 593/840
+checkpoint: 594/840
+checkpoint: 595/840
+checkpoint: 596/840
+checkpoint: 597/840
+checkpoint: 598/840
+checkpoint: 599/840
+checkpoint: 600/840
+checkpoint: 601/840
+checkpoint: 602/840
+checkpoint: 603/840
+checkpoint: 604/840
+checkpoint: 605/840
+checkpoint: 606/840
+checkpoint: 607/840
+checkpoint: 608/840
+checkpoint: 609/840
+checkpoint: 610/840
+checkpoint: 611/840
+checkpoint: 612/840
+checkpoint: 613/840
+checkpoint: 614/840
+checkpoint: 615/840
+checkpoint: 616/840
+checkpoint: 617/840
+checkpoint: 618/840
+checkpoint: 619/840
+checkpoint: 620/840
+checkpoint: 621/840
+checkpoint: 622/840
+checkpoint: 623/840
+checkpoint: 624/840
+checkpoint: 625/840
+checkpoint: 626/840
+checkpoint: 627/840
+checkpoint: 628/840
+checkpoint: 629/840
+checkpoint: 630/840
+checkpoint: 631/840
+checkpoint: 632/840
+checkpoint: 633/840
+checkpoint: 634/840
+checkpoint: 635/840
+checkpoint: 636/840
+checkpoint: 637/840
+checkpoint: 638/840
+checkpoint: 639/840
+checkpoint: 640/840
+checkpoint: 641/840
+checkpoint: 642/840
+checkpoint: 643/840
+checkpoint: 644/840
+checkpoint: 645/840
+checkpoint: 646/840
+checkpoint: 647/840
+checkpoint: 648/840
+checkpoint: 649/840
+checkpoint: 650/840
+checkpoint: 651/840
+checkpoint: 652/840
+checkpoint: 653/840
+checkpoint: 654/840
+checkpoint: 655/840
+checkpoint: 656/840
+checkpoint: 657/840
+checkpoint: 658/840
+checkpoint: 659/840
+checkpoint: 660/840
+checkpoint: 661/840
+checkpoint: 662/840
+checkpoint: 663/840
+checkpoint: 664/840
+checkpoint: 665/840
+checkpoint: 666/840
+checkpoint: 667/840
+checkpoint: 668/840
+checkpoint: 669/840
+checkpoint: 670/840
+checkpoint: 671/840
+checkpoint: 672/840
+checkpoint: 673/840
+checkpoint: 674/840
+checkpoint: 675/840
+checkpoint: 676/840
+checkpoint: 677/840
+checkpoint: 678/840
+checkpoint: 679/840
+checkpoint: 680/840
+checkpoint: 681/840
+checkpoint: 682/840
+checkpoint: 683/840
+checkpoint: 684/840
+checkpoint: 685/840
+checkpoint: 686/840
+checkpoint: 687/840
+checkpoint: 688/840
+checkpoint: 689/840
+checkpoint: 690/840
+checkpoint: 691/840
+checkpoint: 692/840
+checkpoint: 693/840
+checkpoint: 694/840
+checkpoint: 695/840
+checkpoint: 696/840
+checkpoint: 697/840
+checkpoint: 698/840
+checkpoint: 699/840
+checkpoint: 700/840
+checkpoint: 701/840
+checkpoint: 702/840
+checkpoint: 703/840
+checkpoint: 704/840
+checkpoint: 705/840
+checkpoint: 706/840
+checkpoint: 707/840
+checkpoint: 708/840
+checkpoint: 709/840
+checkpoint: 710/840
+checkpoint: 711/840
+checkpoint: 712/840
+checkpoint: 713/840
+checkpoint: 714/840
+checkpoint: 715/840
+checkpoint: 716/840
+checkpoint: 717/840
+checkpoint: 718/840
+checkpoint: 719/840
+checkpoint: 720/840
+checkpoint: 721/840
+checkpoint: 722/840
+checkpoint: 723/840
+checkpoint: 724/840
+checkpoint: 725/840
+checkpoint: 726/840
+checkpoint: 727/840
+checkpoint: 728/840
+checkpoint: 729/840
+checkpoint: 730/840
+checkpoint: 731/840
+checkpoint: 732/840
+checkpoint: 733/840
+checkpoint: 734/840
+checkpoint: 735/840
+checkpoint: 736/840
+checkpoint: 737/840
+checkpoint: 738/840
+checkpoint: 739/840
+checkpoint: 740/840
+checkpoint: 741/840
+checkpoint: 742/840
+checkpoint: 743/840
+checkpoint: 744/840
+checkpoint: 745/840
+checkpoint: 746/840
+checkpoint: 747/840
+checkpoint: 748/840
+checkpoint: 749/840
+checkpoint: 750/840
+checkpoint: 751/840
+checkpoint: 752/840
+checkpoint: 753/840
+checkpoint: 754/840
+checkpoint: 755/840
+checkpoint: 756/840
+checkpoint: 757/840
+checkpoint: 758/840
+checkpoint: 759/840
+checkpoint: 760/840
+checkpoint: 761/840
+checkpoint: 762/840
+checkpoint: 763/840
+checkpoint: 764/840
+checkpoint: 765/840
+checkpoint: 766/840
+checkpoint: 767/840
+checkpoint: 768/840
+checkpoint: 769/840
+checkpoint: 770/840
+checkpoint: 771/840
+checkpoint: 772/840
+checkpoint: 773/840
+checkpoint: 774/840
+checkpoint: 775/840
+checkpoint: 776/840
+checkpoint: 777/840
+checkpoint: 778/840
+checkpoint: 779/840
+checkpoint: 780/840
+checkpoint: 781/840
+checkpoint: 782/840
+checkpoint: 783/840
+checkpoint: 784/840
+checkpoint: 785/840
+checkpoint: 786/840
+checkpoint: 787/840
+checkpoint: 788/840
+checkpoint: 789/840
+checkpoint: 790/840
+checkpoint: 791/840
+checkpoint: 792/840
+checkpoint: 793/840
+checkpoint: 794/840
+checkpoint: 795/840
+checkpoint: 796/840
+checkpoint: 797/840
+checkpoint: 798/840
+checkpoint: 799/840
+checkpoint: 800/840
+checkpoint: 801/840
+checkpoint: 802/840
+checkpoint: 803/840
+checkpoint: 804/840
+checkpoint: 805/840
+checkpoint: 806/840
+checkpoint: 807/840
+checkpoint: 808/840
+checkpoint: 809/840
+checkpoint: 810/840
+checkpoint: 811/840
+checkpoint: 812/840
+checkpoint: 813/840
+checkpoint: 814/840
+checkpoint: 815/840
+checkpoint: 816/840
+checkpoint: 817/840
+checkpoint: 818/840
+checkpoint: 819/840
+checkpoint: 820/840
+checkpoint: 821/840
+checkpoint: 822/840
+checkpoint: 823/840
+checkpoint: 824/840
+checkpoint: 825/840
+checkpoint: 826/840
+checkpoint: 827/840
+checkpoint: 828/840
+checkpoint: 829/840
+checkpoint: 830/840
+checkpoint: 831/840
+checkpoint: 832/840
+checkpoint: 833/840
+checkpoint: 834/840
+checkpoint: 835/840
+checkpoint: 836/840
+checkpoint: 837/840
+checkpoint: 838/840
+checkpoint: 839/840
+checkpoint: 840/840
+{
+  "model_key": "mistral-7b-instruct-v0.3",
+  "questions": 280,
+  "prompts": 840,
+  "packet_content_sha256": "2251f2e4c45601e646d20c98074e9dc503fac43c7fd2d987fc9a0292c5191aef",
+  "error_kinds": [
+    "service_503",
+    "timeout",
+    "permission_denied"
+  ],
+  "n_responses": 840,
+  "n_missing": 0,
+  "complete": true
+}
+{
+  "model_key": "mistral-7b-instruct-v0.3",
+  "questions": 280,
+  "prompts": 840,
+  "packet_content_sha256": "2251f2e4c45601e646d20c98074e9dc503fac43c7fd2d987fc9a0292c5191aef",
+  "error_kinds": [
+    "service_503",
+    "timeout",
+    "permission_denied"
+  ],
+  "n_responses": 840,
+  "n_missing": 0,
+  "complete": true,
+  "responses_sha256": "303f6319cfdc0e1e5da341192a3702da4225d0c6e10299a02288ee422ab04a38"
+}
