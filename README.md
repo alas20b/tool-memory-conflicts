@@ -122,10 +122,31 @@ After all five individual runs finish, validate and combine them with:
 sh run_scripts.sh --aggregate
 ```
 
-This requires exactly 4,200 validated responses and writes
+This aggregates the `transformers` backend and writes
 `artifacts/full/transformers/study_summary.json` and
-`artifacts/full/transformers/study_group_metrics.csv`. If you ran a different
-backend, pass it back: `sh run_scripts.sh --aggregate --backend lms`.
+`artifacts/full/transformers/study_group_metrics.csv`. To aggregate a different
+backend, pass it back:
+
+```sh
+sh run_scripts.sh --aggregate --backend lms
+```
+
+To combine **every** backend that has results in one shot:
+
+```sh
+sh run_scripts.sh --aggregate all
+```
+
+`--aggregate all` scans `artifacts/full/<backend>/` for each backend, aggregates
+the ones that have data, and writes a combined report:
+`artifacts/full/study_summary.json` and `artifacts/full/study_group_metrics.csv`
+(each row carries a `backend` column). A per-backend summary is also written
+under each backend's own folder.
+
+Incomplete results are never fatal. If a model is missing or fewer than 4,200
+responses are present (some models still running), the aggregator prints
+`WARNING: ...` lines to stderr and continues, marking that backend `partial`
+instead of `complete`.
 
 To list the mapping at the command line:
 

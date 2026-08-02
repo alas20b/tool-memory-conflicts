@@ -1,0 +1,27 @@
+{
+  "schema_version": "kcb-tool-error-study-summary-v1",
+  "status": "partial",
+  "backend": "transformers",
+  "models": [],
+  "model_count": 0,
+  "total_responses": 0,
+  "expected_total_responses": 4200
+}
+{
+  "schema_version": "kcb-tool-error-study-summary-v1",
+  "status": "partial",
+  "backend": "transformers",
+  "models": [],
+  "model_count": 0,
+  "total_responses": 0,
+  "expected_total_responses": 4200
+}
+{
+  "schema_version": "kcb-tool-error-study-summary-v1",
+  "status": "partial",
+  "backend": "transformers",
+  "models": [],
+  "model_count": 0,
+  "total_responses": 0,
+  "expected_total_responses": 4200
+}
